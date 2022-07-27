@@ -1,7 +1,6 @@
 package com.example;
 
 import java.io.FileWriter;
-import java.nio.channels.WritableByteChannel;
 import java.io.FileReader;
 import java.util.List;
 import com.opencsv.*;
@@ -18,10 +17,8 @@ public class App
     {
         try {
             FileReader filereader = new FileReader(inputFile);    
-            CSVReader csvReader = new CSVReaderBuilder(filereader)
-                                    .build();
-            List<String[]> csvData = csvReader.readAll();
-            
+            CSVReader csvReader = new CSVReaderBuilder(filereader).build();
+            List<String[]> csvData = csvReader.readAll();            
             FileWriter xmlData = new FileWriter(outputFile);
             
             String[] header = csvData.remove(0);
@@ -30,10 +27,12 @@ public class App
 
             xmlData.write("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
             xmlData.write("<root>\n");
-            for (String[] row : csvData) {
+            for (String[] row : csvData)
+            {
                 index = 0;
                 xmlData.write("\t<row>\n");
-                for (String cell : row) {
+                for (String cell : row)
+                {
                     xmlData.write("\t\t<" + header[index] + ">");
                     xmlData.write(cell);
                     xmlData.write("</" + header[index] + ">\n");
@@ -45,7 +44,8 @@ public class App
             xmlData.close();
 
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
